@@ -58,7 +58,7 @@ class _QuizPageState extends State<QuizPage> {
 
     if (_controller.questionNumber == 0)
       return CenteredMessage(
-        'Sem questões',
+        message: 'Sem questões',
         icon: FontAwesomeIcons.exclamationTriangle
       );
 
