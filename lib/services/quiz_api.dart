@@ -11,7 +11,7 @@ class QuizApi{
       if(response.statusCode == 200){
         var data = json.decode(response.body);
         return List<Question>.from(
-          data["quwstions"].map((x) => Question.fromMap(x))
+          data["questions"].map((x) => Question.fromMap(x))
         );
       }else{
         return List<Question>();

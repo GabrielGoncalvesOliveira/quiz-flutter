@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quiz_animais/models/question.dart';
 
 class ResultDialog {
@@ -22,7 +23,7 @@ class ResultDialog {
           title: CircleAvatar(
             backgroundColor: correct ? Colors.green : Colors.red,
             child: Icon(
-              correct ? Icons.check : Icons.close,
+              correct ? FontAwesomeIcons.thumbsUp : FontAwesomeIcons.thumbsDown,
               color: Colors.grey.shade900,
             ),
           ),

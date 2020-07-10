@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quiz_animais/pages/quiz_page.dart';
 import 'package:share/share.dart';
 
@@ -24,7 +25,7 @@ class FinishDialog {
             backgroundColor: Colors.green,
             maxRadius: 35.0,
             child: Icon(
-              hitNumber < 6 ? Icons.warning : Icons.favorite,
+              hitNumber < 6 ? FontAwesomeIcons.exclamationTriangle : FontAwesomeIcons.heart,
               color: Colors.grey.shade900,
             ),
           ),
@@ -61,7 +62,7 @@ class FinishDialog {
             FlatButton(
               child: const Text('COMPARTILHAR'),
               onPressed: () {
-                Share.share('Quiz COVID-29. Você acertou $hitNumber de 10!');
+                Share.share('Quiz Animais. Você acertou $hitNumber de 10!');
               },
             ),
             FlatButton(

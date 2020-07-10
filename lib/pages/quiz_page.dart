@@ -5,6 +5,8 @@ import 'package:quiz_animais/components/centered_message.dart';
 import 'package:quiz_animais/components/finish_dialog.dart';
 import 'package:quiz_animais/components/result_dialog.dart';
 import 'package:quiz_animais/controllers/quiz_controller.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class QuizPage extends StatefulWidget {
   @override
@@ -14,6 +16,7 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   final _controller = QuizController();
   List<Widget> _scoreKeeper = [];
+  List<Widget> _scoreKeeper2 = [];
 
   bool _loading = true;
 
@@ -36,7 +39,7 @@ class _QuizPageState extends State<QuizPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade900,
-        title: Text('QUIZ COVID-19 ( ${_scoreKeeper.length}/${_controller.questionNumber} )'),
+        title: Text('QUIZ ANIMAIS ( ${_scoreKeeper.length + _scoreKeeper2.length}/${_controller.questionNumber} )'),
         centerTitle: true,
         elevation: 0.0,
       ),
@@ -56,7 +59,7 @@ class _QuizPageState extends State<QuizPage> {
     if (_controller.questionNumber == 0)
       return CenteredMessage(
         'Sem questões',
-        icon: Icons.warning,
+        icon: FontAwesomeIcons.exclamationTriangle
       );
 
     return Column(
@@ -67,6 +70,7 @@ class _QuizPageState extends State<QuizPage> {
         _buildAnswerButton(_controller.getAnswer1()),
         _buildAnswerButton(_controller.getAnswer2()),
         _buildScoreKeeper(),
+        _buildScoreKeeper2(),
       ],
     );
   }
@@ -121,14 +125,24 @@ class _QuizPageState extends State<QuizPage> {
               correct: correct,
               onNext: () {
                 setState(() {
-                  _scoreKeeper.add(
-                    Icon(
-                      correct ? Icons.check : Icons.close,
-                      color: correct ? Colors.green : Colors.red,
-                    ),
-                  );
+                  if(_scoreKeeper.length<10){
+                      _scoreKeeper.add(
+                      Icon(
+                        correct ? FontAwesomeIcons.thumbsUp : FontAwesomeIcons.thumbsDown,
+                        color: correct ? Colors.green : Colors.red,
+                      ),
+                    );
+                  }else{
+                    _scoreKeeper2.add(
+                      Icon(
+                        correct ? FontAwesomeIcons.thumbsUp : FontAwesomeIcons.thumbsDown,
+                        color: correct ? Colors.green : Colors.red,
+                      ),
+                    );
+                  }
+                  
 
-                  if (_scoreKeeper.length < _controller.questionNumber) {
+                  if (_scoreKeeper.length+_scoreKeeper2.length < _controller.questionNumber) {
                     _controller.nextQuestion();
                   } else {
                     FinishDialog.show(
@@ -151,6 +165,14 @@ class _QuizPageState extends State<QuizPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: _scoreKeeper,
+      ),
+    );
+  }
+  _buildScoreKeeper2() {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: _scoreKeeper2,
       ),
     );
   }
