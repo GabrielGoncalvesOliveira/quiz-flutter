@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_animais/components/build_question.dart';
 import 'package:quiz_animais/components/centered_circular_progress.dart';
 import 'package:quiz_animais/components/centered_message.dart';
 import 'package:quiz_animais/components/finish_dialog.dart';
@@ -66,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _buildQuestion(_controller.getQuestion()),
+        BuildQuestion(question: _controller.getQuestion(),),//_buildQuestion(_controller.getQuestion()),
         _buildAnswerButton(_controller.getAnswer1()),
         _buildAnswerButton(_controller.getAnswer2()),
         _buildScoreKeeper(),
