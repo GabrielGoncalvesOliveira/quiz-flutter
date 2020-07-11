@@ -67,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        BuildQuestion(question: _controller.getQuestion(),),//_buildQuestion(_controller.getQuestion()),
+        BuildQuestion(question: _controller.getQuestion(),),
         _buildAnswerButton(_controller.getAnswer1()),
         _buildAnswerButton(_controller.getAnswer2()),
         _buildScoreKeeper(),
