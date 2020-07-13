@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_animais/components/build_answer.dart';
 import 'package:quiz_animais/components/build_question.dart';
 import 'package:quiz_animais/components/centered_circular_progress.dart';
 import 'package:quiz_animais/components/centered_message.dart';
@@ -68,8 +69,84 @@ class _QuizPageState extends State<QuizPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         BuildQuestion(question: _controller.getQuestion(),),
-        _buildAnswerButton(_controller.getAnswer1()),
-        _buildAnswerButton(_controller.getAnswer2()),
+        BuildAnswer(answer: _controller.getAnswer1(), onTap: (){
+          bool correct = _controller.correctAnswer(_controller.getAnswer1());
+
+            ResultDialog.show(
+              context,
+              question: _controller.question,
+              correct: correct,
+              onNext: () {
+                setState(() {
+                  if(_scoreKeeper.length<10){
+                      _scoreKeeper.add(
+                      Icon(
+                        correct ? FontAwesomeIcons.thumbsUp : FontAwesomeIcons.thumbsDown,
+                        color: correct ? Colors.green : Colors.red,
+                      ),
+                    );
+                  }else{
+                    _scoreKeeper2.add(
+                      Icon(
+                        correct ? FontAwesomeIcons.thumbsUp : FontAwesomeIcons.thumbsDown,
+                        color: correct ? Colors.green : Colors.red,
+                      ),
+                    );
+                  }
+                  
+
+                  if (_scoreKeeper.length+_scoreKeeper2.length < _controller.questionNumber) {
+                    _controller.nextQuestion();
+                  } else {
+                    FinishDialog.show(
+                      context,
+                      hitNumber: _controller.hitNumber,
+                      questionNumber:  _controller.questionNumber
+                    );
+                  }
+                });
+              },
+            );
+        }),//_buildAnswerButton(_controller.getAnswer1()),
+        BuildAnswer(answer: _controller.getAnswer2(), onTap: (){
+          bool correct = _controller.correctAnswer(_controller.getAnswer2());
+
+            ResultDialog.show(
+              context,
+              question: _controller.question,
+              correct: correct,
+              onNext: () {
+                setState(() {
+                  if(_scoreKeeper.length<10){
+                      _scoreKeeper.add(
+                      Icon(
+                        correct ? FontAwesomeIcons.thumbsUp : FontAwesomeIcons.thumbsDown,
+                        color: correct ? Colors.green : Colors.red,
+                      ),
+                    );
+                  }else{
+                    _scoreKeeper2.add(
+                      Icon(
+                        correct ? FontAwesomeIcons.thumbsUp : FontAwesomeIcons.thumbsDown,
+                        color: correct ? Colors.green : Colors.red,
+                      ),
+                    );
+                  }
+                  
+
+                  if (_scoreKeeper.length+_scoreKeeper2.length < _controller.questionNumber) {
+                    _controller.nextQuestion();
+                  } else {
+                    FinishDialog.show(
+                      context,
+                      hitNumber: _controller.hitNumber,
+                      questionNumber:  _controller.questionNumber
+                    );
+                  }
+                });
+              },
+            );
+        }),//_buildAnswerButton(_controller.getAnswer2()),
         _buildScoreKeeper(),
         _buildScoreKeeper2(),
       ],
